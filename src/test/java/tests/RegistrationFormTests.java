@@ -1,13 +1,18 @@
 package tests;
 
 import org.junit.jupiter.api.Test;
+
 import pages.MainPage;
+
+
 import pages.RegistrationPage;
 
 public class RegistrationFormTests extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
+
     MainPage mainPage = new MainPage();
+
 
     @Test
     void successfullRegistrationTest() {
@@ -17,14 +22,13 @@ public class RegistrationFormTests extends TestBase {
                 .submitClick();
 
         mainPage.checkSectionsPresence("Камера")
+                .checkSectionsPresence("Видеоархив")
                 .checkSectionsPresence("События")
                 .checkSectionsPresence("Пользователи")
                 .checkSectionsPresence("Настройки")
                 .checkSectionsPresence("Администрирование")
                 .checkSectionsPresence("Отчеты")
                 .checkSectionsPresence("Выход");
-
-
     }
 
     @Test
