@@ -1,0 +1,32 @@
+// Плагины, которые используются в проекте
+plugins {
+    id 'java-library'  // Подключает функциональность Java-библиотеки (можно создавать .jar)
+}
+
+// Места, откуда Gradle будет скачивать зависимости (библиотеки)
+repositories {
+    mavenCentral()  // Основной репозиторий Maven с открытыми библиотеками
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+// Все внешние библиотеки, которые нужны вашему проекту
+dependencies {
+    // Зависимости для тестов (будут доступны только в тестовом коде)
+    testImplementation(
+            "com.codeborne:selenide:7.14.0", // Selenide - фреймворк для тестирования веб-интерфейсов
+            "org.junit.jupiter:junit-jupiter:5.11.4",
+            "org.slf4j:slf4j-simple:2.0.7",
+            "io.github.cdimascio:dotenv-java:3.0.0"
+
+    )
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.11.4'
+}
+
+//Для того чтоб запускать тесты
+test {
+    useJUnitPlatform()
+}
