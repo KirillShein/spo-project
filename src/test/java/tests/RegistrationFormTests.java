@@ -10,7 +10,6 @@ import pages.RegistrationPage;
 public class RegistrationFormTests extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
-
     MainPage mainPage = new MainPage();
 
 

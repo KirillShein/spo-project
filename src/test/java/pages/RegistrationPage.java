@@ -12,6 +12,7 @@ public class RegistrationPage {
     private SelenideElement loginInput = $("#login"),
                             passwordInput = $("#password"),
                             submitForm = $("button[type='submit']"),
+                            authorizationModal = $("div[role='dialog']"),
                             wrongModal = $(".jss6.MuiBox-root"),
                             titleWrongModal = $("#parent-modal-title"),
                             descriptionWrongModal = $("#parent-modal-description"),
@@ -73,4 +74,11 @@ public class RegistrationPage {
 
         return this;
     }
+
+    public RegistrationPage checkAuthozationModal() {
+        authorizationModal.shouldBe(visible);
+
+        return this;
+    }
+
 }
