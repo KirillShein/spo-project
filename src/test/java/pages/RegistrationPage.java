@@ -1,10 +1,6 @@
 package pages;
 
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import jdk.jshell.EvalException;
-
-
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -18,7 +14,7 @@ public class RegistrationPage {
                             descriptionWrongModal = $("#parent-modal-description"),
                             buttonWrongModal = $x("//button[text()='ОК']");
 
-    private ElementsCollection sectionName = $$(".MuiListItemText-root");
+
 
     public RegistrationPage openPage() {
         open("");
@@ -44,11 +40,6 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage checkSectionsPresence(String value) {
-        sectionName.findBy(text(value));
-
-        return this;
-    }
 
     public RegistrationPage openModalWrong() {
         wrongModal.shouldBe(visible);

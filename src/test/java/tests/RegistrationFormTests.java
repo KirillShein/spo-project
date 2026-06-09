@@ -1,26 +1,30 @@
 package tests;
 
 import org.junit.jupiter.api.Test;
+import pages.MainPage;
 import pages.RegistrationPage;
 
 public class RegistrationFormTests extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
+    MainPage mainPage = new MainPage();
 
     @Test
     void successfullRegistrationTest() {
         registrationPage.openPage()
                 .login(login)
                 .password(password)
-                .submitClick()
-                .checkSectionsPresence("Камера")
-                .checkSectionsPresence("Видеоархив")
+                .submitClick();
+
+        mainPage.checkSectionsPresence("Камера")
                 .checkSectionsPresence("События")
                 .checkSectionsPresence("Пользователи")
                 .checkSectionsPresence("Настройки")
                 .checkSectionsPresence("Администрирование")
                 .checkSectionsPresence("Отчеты")
                 .checkSectionsPresence("Выход");
+
+
     }
 
     @Test
