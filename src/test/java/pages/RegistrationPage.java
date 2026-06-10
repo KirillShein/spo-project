@@ -13,6 +13,8 @@ public class RegistrationPage {
                             passwordInput = $("#password"),
                             submitForm = $("button[type='submit']"),
                             authorizationModal = $("div[role='dialog']"),
+                            authorizationTitle = $x("//h3[text()='Авторизация']"),
+                            keyboardIcon = $("[data-testid='KeyboardAltOutlinedIcon']"),
                             wrongModal = $(".jss6.MuiBox-root"),
                             titleWrongModal = $("#parent-modal-title"),
                             descriptionWrongModal = $("#parent-modal-description"),
@@ -22,6 +24,18 @@ public class RegistrationPage {
 
     public RegistrationPage openPage() {
         open("");
+
+        return this;
+    }
+
+    public RegistrationPage authorizationTitle(String value) {
+        authorizationTitle.shouldHave(exactText(value));
+
+        return this;
+    }
+
+    public RegistrationPage closedKeybord() {
+        keyboardIcon.click();
 
         return this;
     }

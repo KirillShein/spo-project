@@ -51,6 +51,10 @@ public class VerifyLogoutTest extends TestBase{
             registrationPage.openPage();
         });
 
+        step("закрыть экранную клавиатуру", () -> {
+            registrationPage.closedKeybord();
+        });
+
         step("ввести логин и пароль", () -> {
             registrationPage.login(login)
                     .password(password);
@@ -60,6 +64,10 @@ public class VerifyLogoutTest extends TestBase{
             registrationPage.submitClick();
         });
 
+        step("нажать на кнопку Выход", () -> {
+            mainPage.logoutSectionClick("Выход");
+        });
+
         step("проверить, что открылось модальное окно с подтверждением действия", () -> {
             mainPage.openModalLogout();
         });
@@ -67,5 +75,10 @@ public class VerifyLogoutTest extends TestBase{
         step("нажать на кнопку Да", () -> {
             mainPage.clickYesButtonModalLogout();
         });
+
+        step("проверить, что произошел выход из приложения и есть title Авторизация", () -> {
+            registrationPage.authorizationTitle("Авторизация");
+        });
+
     }
 }
