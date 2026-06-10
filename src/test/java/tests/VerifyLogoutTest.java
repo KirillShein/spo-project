@@ -5,6 +5,7 @@ import pages.MainPage;
 import pages.RegistrationPage;
 
 import static com.codeborne.selenide.Selenide.sleep;
+import static io.qameta.allure.Allure.step;
 
 
 public class VerifyLogoutTest extends TestBase{
@@ -14,28 +15,57 @@ public class VerifyLogoutTest extends TestBase{
 
     @Test
     void verifyCancelLogout() {
-        registrationPage.openPage()
-                .login(login)
-                .password(password)
-                .submitClick();
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
 
-        mainPage.logoutSectionClick("Выход")
-                .openModalLogout()
-                .clickNoButtonModalLogout()
-                .closedModalLogout();
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
 
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку Выход", () -> {
+            mainPage.logoutSectionClick("Выход");
+        });
+
+        step("проверить, что открылось модальное окно с подтверждением действия", () -> {
+            mainPage.openModalLogout();
+        });
+
+        step("нажать на кнопку Нет", () -> {
+            mainPage.clickNoButtonModalLogout();
+        });
+
+        step("проверрить, что модальное окно было закрыто", () -> {
+            mainPage.closedModalLogout();
+        });
     }
 
     @Test
     void verifyConfirmLogout() {
-        registrationPage.openPage()
-                .login(login)
-                .password(password)
-                .submitClick();
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
 
-        mainPage.logoutSectionClick("Выход")
-                .openModalLogout()
-                .clickYesButtonModalLogout();
-        sleep(2000);
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("проверить, что открылось модальное окно с подтверждением действия", () -> {
+            mainPage.openModalLogout();
+        });
+
+        step("нажать на кнопку Да", () -> {
+            mainPage.clickYesButtonModalLogout();
+        });
     }
 }
