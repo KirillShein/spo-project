@@ -24,6 +24,8 @@ public class TestBase {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "http://localhost:8083/";
         Configuration.pageLoadStrategy = "eager";
+
+
     }
 
 
