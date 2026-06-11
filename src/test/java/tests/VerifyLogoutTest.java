@@ -29,7 +29,7 @@ public class VerifyLogoutTest extends TestBase{
         });
 
         step("нажать на кнопку Выход", () -> {
-            mainPage.logoutSectionClick("Выход");
+            mainPage.sectionClick("Выход");
         });
 
         step("проверить, что открылось модальное окно с подтверждением действия", () -> {
@@ -65,7 +65,7 @@ public class VerifyLogoutTest extends TestBase{
         });
 
         step("нажать на кнопку Выход", () -> {
-            mainPage.logoutSectionClick("Выход");
+            mainPage.sectionClick("Выход");
         });
 
         step("проверить, что открылось модальное окно с подтверждением действия", () -> {

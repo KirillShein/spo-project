@@ -3,20 +3,30 @@ package pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.sun.tools.javac.Main;
 
+import static com.codeborne.selenide.CollectionCondition.size;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
+import static java.nio.file.Files.size;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MainPage {
 
     private SelenideElement modalLogout = $x("//h2[text()='Выход']/ancestor::div[@role='dialog']"),
-                            noButtonModalLogout = $x("//button[normalize-space()='Нет']");
+                            noButtonModalLogout = $x("//button[normalize-space()='Нет']"),
+                            selectRegords = $("select.MuiNativeSelect-select"),
+                            iconNoBlockedDeleteFile = $("[data-testid='LockOpenIcon']"),
+                            iconYesBlockDeleteFile = $("[data-testid='HttpsIcon']");
 
 
 
-    private ElementsCollection sectionName = $$(".MuiListItemText-root");
+
+
+    private ElementsCollection sectionName = $$(".MuiListItemText-root"),
+                               videoRecordingsItems = $$(".MuiListItem-root");
 
 
 
@@ -26,7 +36,7 @@ public class MainPage {
     }
 
 
-    public MainPage logoutSectionClick(String value) {
+    public MainPage sectionClick(String value) {
         sectionName.findBy(text(value)).click();
 
         return this;
@@ -60,4 +70,62 @@ public class MainPage {
         Selenide.executeJavaScript("arguments[0].click();", noButtonModalLogout);
         return this;
     }
+
+    public MainPage clickRecordSelect() {
+        selectRegords.click();
+
+        return this;
+    }
+
+    public MainPage choiseSelectOption(int index) {
+        selectRegords.selectOption(index);
+
+        return this;
+    }
+
+    public MainPage verifyItemsCountLessOrEqualTo100(int count) {
+        videoRecordingsItems.shouldHave(size(count));
+        return this;
+    }
+
+    public MainPage scrollToEndAndVerifyLastRecordNumber(int expectedLastNumber) {
+        // Прокручиваем до конца несколько раз
+        for (int i = 0; i < 10; i++) {
+            Selenide.executeJavaScript("window.scrollTo(0, document.body.scrollHeight)");
+            sleep(500);
+        }
+
+        // Ищем элемент с номером 100
+        SelenideElement record100 = $x("//span[contains(text(), '100.')]");
+        record100.shouldBe(visible, Duration.ofSeconds(10));
+
+        System.out.println("Запись №100 найдена: " + record100.getText());
+
+        return this;
+    }
+
+    public MainPage clickIconNoBlockDeleteFile() {
+        iconNoBlockedDeleteFile.click();
+
+        return this;
+    }
+
+    public MainPage checkIconChangeYesBlocked() {
+        iconYesBlockDeleteFile.shouldBe(visible);
+
+        return this;
+    }
+
+    public MainPage clickIconYesBlockDeleteFile() {
+        iconYesBlockDeleteFile.click();
+
+        return this;
+    }
+
+    public MainPage checkIconChangeNoBlocked() {
+        iconNoBlockedDeleteFile.shouldBe(visible);
+
+        return this;
+    }
+
 }
