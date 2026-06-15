@@ -23,7 +23,8 @@ public class MainPage {
                             inputNameFilter = $("#archiveUserName"),
                             buttonSearch = $x("//button[text()='Поиск']"),
                             inputCodeEmployyeFilter = $("#archiveCode"),
-                            inputCameraFilter = $("#arhiveCameraId");
+                            inputCameraFilter = $("#arhiveCameraId"),
+                            inputDepartmentFilter = $("#archiveDepartment");
 
 
 
@@ -180,6 +181,12 @@ public class MainPage {
 
     public MainPage verifyEmployeeCamera(String employeeCamera) {
         $x("//div[contains(text(), 'Камера № " + employeeCamera + "')]").shouldBe(visible);
+        return this;
+    }
+
+    public MainPage inputDepartment(String value) {
+        inputDepartmentFilter.setValue(value);
+
         return this;
     }
 

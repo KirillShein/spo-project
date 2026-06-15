@@ -195,8 +195,9 @@ public class VideoArchiveTests extends TestBase{
         });
     }
 
+
     @Test
-    void checkingFilteringByCamera() {
+    void checkingFilteringByDepartment() {
 
         step("открыть страницу с формой авторизации", () -> {
             registrationPage.openPage();
@@ -219,8 +220,8 @@ public class VideoArchiveTests extends TestBase{
             mainPage.clickButtonFilter();
         });
 
-        step("ввести номер камеры", () -> {
-            mainPage.inputCamera("1");
+        step("ввести название подразделения", () -> {
+            mainPage.inputDepartment("Новские");
         });
 
         step("нажать на кнопку Поиск", () -> {
@@ -231,10 +232,8 @@ public class VideoArchiveTests extends TestBase{
             mainPage.clickOutside();
         });
 
-        step("проверить что отобразились записи с камерой №1", ()-> {
-            mainPage.verifyEmployeeCamera("3");
+        step("проверить что отобразились записи с Бирюков Андрей Сергеевич", ()-> {
+            mainPage.verifyEmployeeName("Бирюков Андрей Сергеевич");
         });
-
-
     }
 }
