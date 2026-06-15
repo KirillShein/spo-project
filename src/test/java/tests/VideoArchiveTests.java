@@ -86,4 +86,71 @@ public class VideoArchiveTests extends TestBase{
         });
 
     }
+
+    @Test
+    void checkingPhotoDisplay() {
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку Видеоархив", () -> {
+            mainPage.sectionClick("Видеоархив");
+        });
+
+        step("выбрать сортировку по фото", () -> {
+            mainPage.clickSelectFoto("фото");
+        });
+
+        sleep(5000);
+    }
+
+    @Test
+    void checkingFilteringByName() {
+
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку Видеоархив", () -> {
+            mainPage.sectionClick("Видеоархив");
+        });
+
+        step("нажать на кнопку Фильтр", () -> {
+            mainPage.clickButtonFilter();
+        });
+
+        step("ввести ФИО сотрудника", () -> {
+            mainPage.inputName("Жестаков Максим Мамович");
+        });
+
+        step("нажать на кнопку Поиск", () -> {
+            mainPage.clickButtonSearch();
+        });
+
+        step("кликнуть по месту вне модального окна", ()-> {
+            mainPage.clickOutside();
+        });
+
+        step("проверить что отобразились записи с Жестаков Максим Мамович", ()-> {
+            mainPage.verifyEmployeeName("Жестаков Максим Мамович");
+        });
+    }
 }

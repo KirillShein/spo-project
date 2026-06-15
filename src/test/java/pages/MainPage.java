@@ -3,15 +3,13 @@ package pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.sun.tools.javac.Main;
+
 
 import static com.codeborne.selenide.CollectionCondition.size;
 import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
-import static java.nio.file.Files.size;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class MainPage {
 
@@ -19,7 +17,11 @@ public class MainPage {
                             noButtonModalLogout = $x("//button[normalize-space()='Нет']"),
                             selectRegords = $("select.MuiNativeSelect-select"),
                             iconNoBlockedDeleteFile = $("[data-testid='LockOpenIcon']"),
-                            iconYesBlockDeleteFile = $("[data-testid='HttpsIcon']");
+                            iconYesBlockDeleteFile = $("[data-testid='HttpsIcon']"),
+                            selectFoto = $x("//select[.//option[text()='Фото']]"),
+                            buttonFilter = $x("//button[text()='Фильтр']"),
+                            inputNameFilter = $("#archiveUserName"),
+                            buttonSearch = $x("//button[text()='Поиск']");
 
 
 
@@ -127,5 +129,41 @@ public class MainPage {
 
         return this;
     }
+
+    public MainPage clickSelectFoto(String value) {
+        selectFoto.selectOption(value);
+
+        return this;
+    }
+
+    public  MainPage clickButtonFilter() {
+        buttonFilter.click();
+
+        return this;
+    }
+
+    public MainPage inputName(String value) {
+        inputNameFilter.setValue(value);
+
+        return this;
+    }
+
+    public MainPage clickOutside() {
+        $("body").click();
+        return this;
+    }
+
+    public MainPage verifyEmployeeName(String employeeName) {
+        $x("//div[contains(text(), '" + employeeName + "')]").shouldBe(visible);
+        return this;
+    }
+
+    public  MainPage clickButtonSearch() {
+        buttonSearch.click();
+
+        return this;
+    }
+
+
 
 }
