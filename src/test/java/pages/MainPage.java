@@ -21,7 +21,8 @@ public class MainPage {
                             selectFoto = $x("//select[.//option[text()='Фото']]"),
                             buttonFilter = $x("//button[text()='Фильтр']"),
                             inputNameFilter = $("#archiveUserName"),
-                            buttonSearch = $x("//button[text()='Поиск']");
+                            buttonSearch = $x("//button[text()='Поиск']"),
+                            inputCodeEmployyeFilter = $("#archiveCode");
 
 
 
@@ -160,6 +161,12 @@ public class MainPage {
 
     public  MainPage clickButtonSearch() {
         buttonSearch.click();
+
+        return this;
+    }
+
+    public MainPage inputCodeEmployee(String value) {
+        inputCodeEmployyeFilter.setValue(value);
 
         return this;
     }
