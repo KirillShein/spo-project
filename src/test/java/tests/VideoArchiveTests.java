@@ -201,6 +201,53 @@ public class VideoArchiveTests extends TestBase{
         });
     }
 
+    @Test
+    void checkingFilterByNumberCamera() {
+
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку Видеоархив", () -> {
+            mainPage.sectionClick("Видеоархив");
+        });
+
+        step("нажать на кнопку Фильтр", () -> {
+            videoArchivePage.clickButtonFilter();
+        });
+
+        step("ввести  номер камеры", () -> {
+            filterModalVideoArchivePage.inputCamera(testData.numberCamera);
+        });
+
+        step("нажать на кнопку Поиск", () -> {
+            filterModalVideoArchivePage.clickButtonSearch();
+        });
+
+        step("кликнуть по месту вне модального окна", ()-> {
+            videoArchivePage.clickOutside();
+        });
+
+        step("проверить что отобразились записи с сотрудникми выбранной камеры", ()-> {
+            videoArchivePage.verifyEmployeeCamera();
+        });
+
+
+
+        sleep(5000);
+    }
+
+
+
 
     @Test
     void checkingFilteringByDepartment() {
@@ -241,6 +288,8 @@ public class VideoArchiveTests extends TestBase{
         step("проверить что отобразились записи с сотрудникми выбранного подразделения", ()-> {
             videoArchivePage.verifyEmployeeName();
         });
+
+
     }
 
     @Test

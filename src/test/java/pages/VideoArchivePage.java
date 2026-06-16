@@ -17,7 +17,8 @@ public class VideoArchivePage {
                             iconYesBlockDeleteFile = $("[data-testid='HttpsIcon']"),
                             selectFoto = $x("//select[.//option[text()='Фото']]"),
                             buttonFilter = $x("//button[text()='Фильтр']"),
-                            employeeName = $x("//div[contains(text(), '" + testData.nameUser + "')]");
+                            employeeName = $x("//div[contains(text(), '" + testData.nameUser + "')]"),
+                            employeeCamera = $x("//div[contains(text(), 'Камера № " + testData.numberCamera + "')]");
 
 
 
@@ -68,8 +69,8 @@ public class VideoArchivePage {
         return this;
     }
 
-    public VideoArchivePage verifyEmployeeCamera(String employeeCamera) {
-        $x("//div[contains(text(), 'Камера № " + employeeCamera + "')]").shouldBe(visible);
+    public VideoArchivePage verifyEmployeeCamera() {
+        employeeCamera.shouldBe(visible);
         return this;
     }
 }
