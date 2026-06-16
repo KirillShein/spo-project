@@ -15,8 +15,8 @@ public class MainPage {
 
     private SelenideElement modalLogout = $x("//h2[text()='Выход']/ancestor::div[@role='dialog']"),
                             noButtonModalLogout = $x("//button[normalize-space()='Нет']"),
-                            selectRegords = $("select.MuiNativeSelect-select"),
-                            selectFoto = $x("//select[.//option[text()='Фото']]");
+                            selectRegords = $("select.MuiNativeSelect-select");
+
 
 
 
@@ -101,17 +101,4 @@ public class MainPage {
 
         return this;
     }
-
-
-
-    public MainPage clickSelectFoto(String value) {
-        selectFoto.selectOption(value);
-
-        return this;
-    }
-
-
-
-
-
 }

@@ -1,10 +1,7 @@
 package tests;
 
 import org.junit.jupiter.api.Test;
-import pages.FilterModalVideoArchivePage;
-import pages.MainPage;
-import pages.RegistrationPage;
-import pages.VideoArchivePage;
+import pages.*;
 import utils.TestData;
 
 import static com.codeborne.selenide.Selenide.sleep;
@@ -16,6 +13,7 @@ public class VideoArchiveTests extends TestBase{
     MainPage mainPage = new MainPage();
     VideoArchivePage videoArchivePage = new VideoArchivePage();
     FilterModalVideoArchivePage filterModalVideoArchivePage = new FilterModalVideoArchivePage();
+    ModalCalendarPage modalCalendarPage = new ModalCalendarPage();
     TestData testData = new TestData();
 
 //    @Test
@@ -93,31 +91,69 @@ public class VideoArchiveTests extends TestBase{
 
     }
 
-//    @Test
-//    void checkingPhotoDisplay() {
-//        step("открыть страницу с формой авторизации", () -> {
-//            registrationPage.openPage();
-//        });
-//
-//        step("ввести логин и пароль", () -> {
-//            registrationPage.login(login)
-//                    .password(password);
-//        });
-//
-//        step("нажать на кнопку Войти", () -> {
-//            registrationPage.submitClick();
-//        });
-//
-//        step("нажать на кнопку Видеоархив", () -> {
-//            mainPage.sectionClick("Видеоархив");
-//        });
-//
-//        step("выбрать сортировку по фото", () -> {
-//            mainPage.clickSelectFoto("фото");
-//        });
-//
-//        sleep(5000);
-//    }
+    @Test
+    void checkingPhotoDisplay() {
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                        .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку Видеоархив", () -> {
+            mainPage.sectionClick("Видеоархив");
+        });
+
+        step("нажать на Видео/Фото", () -> {
+            videoArchivePage.clickSortVideoAndFoto();
+        });
+
+        step("нажать на Фото", () -> {
+            videoArchivePage.clickSortFoto();
+        });
+
+        step("проверить что отобразились только записи с фото", () -> {
+            videoArchivePage.verifyFotoRecords();
+        });
+    }
+
+    @Test
+    void checkingVideoDisplay() {
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку Видеоархив", () -> {
+            mainPage.sectionClick("Видеоархив");
+        });
+
+        step("нажать на Видео/Фото", () -> {
+            videoArchivePage.clickSortVideoAndFoto();
+        });
+
+        step("нажать на Видео", () -> {
+            videoArchivePage.clickSortVideo();
+        });
+
+        step("проверить что отобразились только записи с видео", () -> {
+            videoArchivePage.verifyVideoRecords();
+        });
+    }
 
     @Test
     void checkingFilteringByName() {
@@ -240,10 +276,6 @@ public class VideoArchiveTests extends TestBase{
         step("проверить что отобразились записи с сотрудникми выбранной камеры", ()-> {
             videoArchivePage.verifyEmployeeCamera();
         });
-
-
-
-        sleep(5000);
     }
 
 
@@ -320,8 +352,21 @@ public class VideoArchiveTests extends TestBase{
            filterModalVideoArchivePage.startDateClick();
        });
 
+        step("нажать на кнопку Сегодня", () -> {
+            modalCalendarPage.clickButtonNowDate();
+        });
 
+        step("нажать на кнопку Поиск", () -> {
+            filterModalVideoArchivePage.clickButtonSearch();
+        });
 
-       sleep(5000);
+        step("кликнуть по месту вне модального окна", ()-> {
+            videoArchivePage.clickOutside();
+        });
+
+        step("проверить что отобразилась заглушка с текстом, что нет файлов", ()-> {
+            videoArchivePage.verifyPlaceholderText();
+        });
+
     }
 }

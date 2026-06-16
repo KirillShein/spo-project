@@ -4,7 +4,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import utils.TestData;
 
-import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$$;
@@ -15,15 +15,20 @@ public class VideoArchivePage {
 
     private SelenideElement iconNoBlockedDeleteFile = $("[data-testid='LockOpenIcon']"),
                             iconYesBlockDeleteFile = $("[data-testid='HttpsIcon']"),
-                            selectFoto = $x("//select[.//option[text()='Фото']]"),
                             buttonFilter = $x("//button[text()='Фильтр']"),
                             employeeName = $x("//div[contains(text(), '" + testData.nameUser + "')]"),
-                            employeeCamera = $x("//div[contains(text(), 'Камера № " + testData.numberCamera + "')]");
+                            employeeCamera = $x("//div[contains(text(), 'Камера № " + testData.numberCamera + "')]"),
+                            videoArchivePlaceholder = $x("//div[contains(text(), '" + testData.videoArchivePlaceholderText + "')]"),
+                            selectSortVideoAndFoto = $x("//select[.//option[text()='Видео/Фото']]"),
+                            selectSortFoto = $x("//select[.//option[text()='Фото']]");
+
 
 
 
     private ElementsCollection sectionName = $$(".MuiListItemText-root"),
-            videoRecordingsItems = $$(".MuiListItem-root");
+                               videoRecordingsItems = $$(".MuiListItem-root"),
+                               fotoIcons = $$("[data-testid='LocalSeeIcon']"),
+                               videoIcons = $$("[data-testid='OndemandVideoIcon']");
 
 
 
@@ -71,6 +76,42 @@ public class VideoArchivePage {
 
     public VideoArchivePage verifyEmployeeCamera() {
         employeeCamera.shouldBe(visible);
+        return this;
+    }
+
+    public VideoArchivePage verifyPlaceholderText() {
+        videoArchivePlaceholder.shouldBe(visible);
+
+        return this;
+    }
+
+    public VideoArchivePage clickSortVideoAndFoto() {
+        selectSortVideoAndFoto.click();
+
+        return this;
+    }
+
+    public VideoArchivePage clickSortFoto() {
+        selectSortFoto.selectOption("Фото");
+
+        return this;
+    }
+
+    public VideoArchivePage clickSortVideo() {
+        selectSortFoto.selectOption("Видео");
+
+        return this;
+    }
+
+    public VideoArchivePage verifyFotoRecords() {
+        videoIcons.shouldHave(size(0));
+
+        return this;
+    }
+
+    public VideoArchivePage verifyVideoRecords() {
+        fotoIcons.shouldHave(size(0));
+
         return this;
     }
 }

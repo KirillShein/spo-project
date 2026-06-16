@@ -1,23 +1,19 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
-import utils.TestData;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class FilterModalVideoArchivePage {
-
-    TestData testData = new TestData();
 
     private SelenideElement inputNameFilter = $("#archiveUserName"),
                             buttonSearch = $x("//button[text()='Поиск']"),
                             inputCodeEmployyeFilter = $("#archiveCode"),
                             inputCameraFilter = $("#arhiveCameraId"),
                             inputDepartmentFilter = $("#archiveDepartment"),
-                            startDateFilter = $x("//label[text()='Дата c']/following-sibling::div//input"),
-                            buttonNowDate = $x("//button[text()='Сегодня']");
+                            startDateFilter = $x("//label[text()='Дата c']/following-sibling::div//input");
+
 
 
     public FilterModalVideoArchivePage inputName(String value) {
