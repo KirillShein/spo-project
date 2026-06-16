@@ -16,15 +16,8 @@ public class MainPage {
     private SelenideElement modalLogout = $x("//h2[text()='Выход']/ancestor::div[@role='dialog']"),
                             noButtonModalLogout = $x("//button[normalize-space()='Нет']"),
                             selectRegords = $("select.MuiNativeSelect-select"),
-                            iconNoBlockedDeleteFile = $("[data-testid='LockOpenIcon']"),
-                            iconYesBlockDeleteFile = $("[data-testid='HttpsIcon']"),
-                            selectFoto = $x("//select[.//option[text()='Фото']]"),
-                            buttonFilter = $x("//button[text()='Фильтр']"),
-                            inputNameFilter = $("#archiveUserName"),
-                            buttonSearch = $x("//button[text()='Поиск']"),
-                            inputCodeEmployyeFilter = $("#archiveCode"),
-                            inputCameraFilter = $("#arhiveCameraId"),
-                            inputDepartmentFilter = $("#archiveDepartment");
+                            selectFoto = $x("//select[.//option[text()='Фото']]");
+
 
 
 
@@ -109,83 +102,10 @@ public class MainPage {
         return this;
     }
 
-    public MainPage clickIconNoBlockDeleteFile() {
-        iconNoBlockedDeleteFile.click();
 
-        return this;
-    }
-
-    public MainPage checkIconChangeYesBlocked() {
-        iconYesBlockDeleteFile.shouldBe(visible);
-
-        return this;
-    }
-
-    public MainPage clickIconYesBlockDeleteFile() {
-        iconYesBlockDeleteFile.click();
-
-        return this;
-    }
-
-    public MainPage checkIconChangeNoBlocked() {
-        iconNoBlockedDeleteFile.shouldBe(visible);
-
-        return this;
-    }
 
     public MainPage clickSelectFoto(String value) {
         selectFoto.selectOption(value);
-
-        return this;
-    }
-
-    public  MainPage clickButtonFilter() {
-        buttonFilter.click();
-
-        return this;
-    }
-
-    public MainPage inputName(String value) {
-        inputNameFilter.setValue(value);
-
-        return this;
-    }
-
-    public MainPage clickOutside() {
-        $("body").click();
-        return this;
-    }
-
-    public MainPage verifyEmployeeName(String employeeName) {
-        $x("//div[contains(text(), '" + employeeName + "')]").shouldBe(visible);
-        return this;
-    }
-
-    public  MainPage clickButtonSearch() {
-        buttonSearch.click();
-
-        return this;
-    }
-
-    public MainPage inputCodeEmployee(String value) {
-        inputCodeEmployyeFilter.setValue(value);
-
-        return this;
-    }
-
-    public MainPage inputCamera(String value) {
-        inputCameraFilter.setValue(value);
-
-        return this;
-    }
-
-    public MainPage verifyEmployeeCamera(String employeeCamera) {
-        $x("//div[contains(text(), 'Камера № " + employeeCamera + "')]").shouldBe(visible);
-        return this;
-    }
-
-    public MainPage inputDepartment(String value) {
-        inputDepartmentFilter.setValue(value);
 
         return this;
     }
