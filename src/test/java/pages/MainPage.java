@@ -13,15 +13,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class MainPage {
 
-    private SelenideElement modalLogout = $x("//h2[text()='Выход']/ancestor::div[@role='dialog']"),
-                            noButtonModalLogout = $x("//button[normalize-space()='Нет']"),
-                            selectRegords = $("select.MuiNativeSelect-select");
-
-
-
-
-
-
+    private SelenideElement selectRegords = $("select.MuiNativeSelect-select");
 
     private ElementsCollection sectionName = $$(".MuiListItemText-root"),
                                videoRecordingsItems = $$(".MuiListItem-root");
@@ -40,34 +32,7 @@ public class MainPage {
         return this;
     }
 
-    public MainPage openModalLogout() {
-        modalLogout.shouldBe(visible);
 
-        return this;
-    }
-
-    public MainPage closedModalLogout() {
-        Selenide.executeJavaScript("arguments[0].remove();", modalLogout);
-        return this;
-    }
-
-    public MainPage clickYesButtonModalLogout() {
-
-        SelenideElement yesButton = modalLogout.$x(".//button[normalize-space()='Да']");
-
-        yesButton.shouldBe(visible, Duration.ofSeconds(10));
-        yesButton.click();
-
-        modalLogout.shouldBe(hidden, Duration.ofSeconds(5));
-
-        return this;
-    }
-
-    public MainPage clickNoButtonModalLogout() {
-
-        Selenide.executeJavaScript("arguments[0].click();", noButtonModalLogout);
-        return this;
-    }
 
     public MainPage clickRecordSelect() {
         selectRegords.click();

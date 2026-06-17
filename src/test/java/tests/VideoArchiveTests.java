@@ -92,7 +92,7 @@ public class VideoArchiveTests extends TestBase{
     }
 
     @Test
-    void checkingPhotoDisplay() {
+    void checkingPhotoDisplayFilter() {
         step("открыть страницу с формой авторизации", () -> {
             registrationPage.openPage();
         });
@@ -124,7 +124,7 @@ public class VideoArchiveTests extends TestBase{
     }
 
     @Test
-    void checkingVideoDisplay() {
+    void checkingVideoDisplayFilter() {
         step("открыть страницу с формой авторизации", () -> {
             registrationPage.openPage();
         });
@@ -152,6 +152,66 @@ public class VideoArchiveTests extends TestBase{
 
         step("проверить что отобразились только записи с видео", () -> {
             videoArchivePage.verifyVideoRecords();
+        });
+    }
+
+    @Test
+    void checkingOpenPhotoDisplay() {
+
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку Видеоархив", () -> {
+            mainPage.sectionClick("Видеоархив");
+        });
+
+        step("нажать на запись", () -> {
+            videoArchivePage.clickItemWithPhoto();
+        });
+
+        step("проверить, что открылась фотография", ()-> {
+            videoArchivePage.verifyImageOpened();
+
+            return this;
+        });
+    }
+
+    @Test
+    void checkingOpenVideoDisplay() {
+
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку Видеоархив", () -> {
+            mainPage.sectionClick("Видеоархив");
+        });
+
+        step("нажать на запись c видео", () -> {
+            videoArchivePage.clickItemWithVideo();
+        });
+
+        step("проверить, что отобразилось видео", ()-> {
+            videoArchivePage.verifyVideoOpened();
         });
     }
 
@@ -369,4 +429,67 @@ public class VideoArchiveTests extends TestBase{
         });
 
     }
+
+    @Test
+    void filteringCheckDateAndTimeFrom() {
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку Видеоархив", () -> {
+            mainPage.sectionClick("Видеоархив");
+        });
+
+        step("нажать на кнопку Фильтр", () -> {
+            videoArchivePage.clickButtonFilter();
+        });
+
+        step("нажать на Дата с", () -> {
+            filterModalVideoArchivePage.startDateClick();
+        });
+
+        step("выбрать дату", () -> {
+           modalCalendarPage.selectRandomDateInCurrentMonth();
+        });
+
+        step("нажать на Время с", () -> {
+            filterModalVideoArchivePage.startTimeClick();
+        });
+
+        step("выбрать время", () -> {
+            modalCalendarPage.selectRandomTime();
+        });
+
+        step("нажать на кнопку Установить", () -> {
+            modalCalendarPage.clickInstallButton();
+        });
+
+        step("нажать на кнопку Поиск", () -> {
+            filterModalVideoArchivePage.clickButtonSearch();
+        });
+
+        step("кликнуть по месту вне модального окна", ()-> {
+            videoArchivePage.clickOutside();
+        });
+
+        step("проверить, что все записи соответствуют фильтру по дате и времени", () -> {
+            videoArchivePage.verifyRecordsMatchDateAndTimeFilter(
+                    modalCalendarPage.getSelectedDate(),
+                    modalCalendarPage.getSelectedTime()
+            );
+        });
+
+        sleep(5000);
+    }
+
+
 }

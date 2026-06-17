@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 import pages.MainPage;
+import pages.ModalLogoutPage;
 import pages.RegistrationPage;
 
 import static com.codeborne.selenide.Selenide.sleep;
@@ -12,6 +13,7 @@ public class VerifyLogoutTest extends TestBase{
 
     RegistrationPage registrationPage = new RegistrationPage();
     MainPage mainPage = new MainPage();
+    ModalLogoutPage modalLogoutPage = new ModalLogoutPage();
 
     @Test
     void verifyCancelLogout() {
@@ -33,15 +35,15 @@ public class VerifyLogoutTest extends TestBase{
         });
 
         step("проверить, что открылось модальное окно с подтверждением действия", () -> {
-            mainPage.openModalLogout();
+            modalLogoutPage.openModalLogout();
         });
 
         step("нажать на кнопку Нет", () -> {
-            mainPage.clickNoButtonModalLogout();
+            modalLogoutPage.clickNoButtonModalLogout();
         });
 
         step("проверрить, что модальное окно было закрыто", () -> {
-            mainPage.closedModalLogout();
+            modalLogoutPage.closedModalLogout();
         });
     }
 
@@ -69,16 +71,15 @@ public class VerifyLogoutTest extends TestBase{
         });
 
         step("проверить, что открылось модальное окно с подтверждением действия", () -> {
-            mainPage.openModalLogout();
+            modalLogoutPage.openModalLogout();
         });
 
         step("нажать на кнопку Да", () -> {
-            mainPage.clickYesButtonModalLogout();
+            modalLogoutPage.clickYesButtonModalLogout();
         });
 
         step("проверить, что произошел выход из приложения и есть title Авторизация", () -> {
             registrationPage.authorizationTitle("Авторизация");
         });
-
     }
 }

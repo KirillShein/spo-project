@@ -12,8 +12,8 @@ public class FilterModalVideoArchivePage {
                             inputCodeEmployyeFilter = $("#archiveCode"),
                             inputCameraFilter = $("#arhiveCameraId"),
                             inputDepartmentFilter = $("#archiveDepartment"),
-                            startDateFilter = $x("//label[text()='Дата c']/following-sibling::div//input");
-
+                            startDateFilter = $x("//label[text()='Дата c']/following-sibling::div//input"),
+                            startTimeFilter = $x("//label[text()='Время c']/following-sibling::div//input");
 
 
     public FilterModalVideoArchivePage inputName(String value) {
@@ -49,6 +49,12 @@ public class FilterModalVideoArchivePage {
 
     public FilterModalVideoArchivePage startDateClick() {
         startDateFilter.click();
+
+        return this;
+    }
+
+    public FilterModalVideoArchivePage startTimeClick() {
+        startTimeFilter.click();
 
         return this;
     }

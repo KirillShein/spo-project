@@ -5,5 +5,6 @@ public class TestData {
                   codeUser = "1405",
                   departmentUser = "Новские",
                   numberCamera = "1",
-                  videoArchivePlaceholderText = "Нет файлов, удовлетворяющих критериям поиска";
+                  videoArchivePlaceholderText = "Нет файлов, удовлетворяющих критериям поиска",
+                  eventsPlaceholderText = "Нет событий за выбранную дату";
 }
