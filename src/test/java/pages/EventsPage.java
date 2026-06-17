@@ -1,11 +1,11 @@
 package pages;
 
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import utils.TestData;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -16,19 +16,13 @@ public class EventsPage  {
     TestData testData = new TestData();
 
     private SelenideElement filterButton = $x("//button[text()='Фильтр']"),
-                            inputEventsForDate = $x("//label[text()='События за']/following-sibling::div//input"),
                             eventPlaceholder = $x("//div[contains(text(), '" + testData.eventsPlaceholderText + "')]");
 
-    private ElementsCollection eventsList = $$(".MuiListItem-root");
+
+
 
     public EventsPage clickFilterButton() {
         filterButton.click();
-
-        return this;
-    }
-
-    public EventsPage clickInputEventsForDate() {
-        inputEventsForDate.click();
 
         return this;
     }
@@ -39,6 +33,28 @@ public class EventsPage  {
             verifyEventPlaceholder();
         } else {
             verifyEventsByDate(selectedDate);
+        }
+
+        return this;
+    }
+
+    public EventsPage verifyEventsByTypeOrPlaceholder(String selectedOneCheckbox) {
+
+        if (eventPlaceholder.isDisplayed()) {
+            verifyEventPlaceholder();
+        } else {
+            verifyEventsByOneType(selectedOneCheckbox);
+        }
+
+        return this;
+    }
+
+    public EventsPage verifyEventsByMultipleTypeOrPlaceholder(List<String> eventTypes) {
+
+        if (eventPlaceholder.isDisplayed()) {
+            verifyEventPlaceholder();
+        } else {
+            verifyEventsByMultipleTypes(eventTypes);
         }
 
         return this;
@@ -56,6 +72,20 @@ public class EventsPage  {
     public EventsPage verifyEventPlaceholder() {
         eventPlaceholder.shouldBe(visible);
 
+        return this;
+    }
+
+    public EventsPage verifyEventsByOneType(String selectedOneCheckbox) {
+
+        $x("// span[contains(text(), '" + selectedOneCheckbox + "')]").shouldBe(visible);
+
+        return this;
+    }
+
+    public EventsPage verifyEventsByMultipleTypes(List<String> eventTypes) {
+        for (String type : eventTypes) {
+            verifyEventsByOneType(type);
+        }
         return this;
     }
 }

@@ -71,7 +71,6 @@ public class ModalCalendarPage {
         Random random = new Random();
         int randomIndex = random.nextInt(activeDays.size());
         selectedDate = validDates.get(randomIndex);
-        System.out.println("Выбрана дата: " + selectedDate);
         activeDays.get(randomIndex).click();
 
         return this;
@@ -101,8 +100,6 @@ public class ModalCalendarPage {
         // Клик через JavaScript
         Selenide.executeJavaScript("arguments[0].click();", selectedHour);
 
-        System.out.println("Выбрано время: " + selectedTime);
-
         return this;
     }
 
@@ -116,7 +113,7 @@ public class ModalCalendarPage {
         return selectedDate;
     }
 
-    // Возвращаем выбранное время
+
     public String getSelectedTime() {
         return selectedTime;
     }

@@ -2,7 +2,9 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 import pages.*;
-import utils.TestData;
+
+
+import java.util.List;
 
 import static com.codeborne.selenide.Selenide.sleep;
 import static io.qameta.allure.Allure.step;
@@ -12,6 +14,7 @@ public class EventsTests extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
     MainPage mainPage = new MainPage();
     EventsPage eventsPage = new EventsPage();
+    FilterModalEvensPage filterModalEvensPage = new FilterModalEvensPage();
     ModalCalendarPage modalCalendarPage = new ModalCalendarPage();
 
     @Test
@@ -39,7 +42,7 @@ public class EventsTests extends TestBase {
         });
 
         step("нажать на поле События за", () -> {
-            eventsPage.clickInputEventsForDate();
+            filterModalEvensPage.clickInputEventsForDate();
         });
 
         step("выбрать день", () -> {
@@ -49,6 +52,82 @@ public class EventsTests extends TestBase {
         step("проверить правильность фильтрации по дате или отображения заглушки", () -> {
             eventsPage.verifyEventsByDateOrPlaceholder(modalCalendarPage.getSelectedDate());
         });
-
     }
+
+    @Test
+    void filterEventsByOneTypeEvent() {
+
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку Видеоархив", () -> {
+            mainPage.sectionClick("События");
+        });
+
+        step("нажать на кнопку Фильтр", () -> {
+            eventsPage.clickFilterButton();
+        });
+
+        step("нажать на поле События", () -> {
+            filterModalEvensPage.clickInputTypeEvent();
+        });
+
+        step("выбрать один тип события", () -> {
+           filterModalEvensPage.selectRandomSingleCheckbox();
+        });
+
+        step("проверить правильность фильтрации по  выбранному типу события или отображения заглушки", () -> {
+            eventsPage.verifyEventsByTypeOrPlaceholder(filterModalEvensPage.getSelectedOneTypeEvent());
+        });
+
+        sleep(2500);
+    }
+
+    @Test
+    void filterEventsBySeveralTypeEvent() {
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку Видеоархив", () -> {
+            mainPage.sectionClick("События");
+        });
+
+        step("нажать на кнопку Фильтр", () -> {
+            eventsPage.clickFilterButton();
+        });
+
+        step("нажать на поле События", () -> {
+            filterModalEvensPage.clickInputTypeEvent();
+        });
+
+        step("выбрать несколько типов события", () -> {
+            filterModalEvensPage.selectRandomMultipleCheckboxes(3);
+        });
+
+        step("проверить, что отображаются события выбранных типов", () -> {
+            List<String> selectedTypes = filterModalEvensPage.getSelectedMultipleCheckboxes();
+            eventsPage.verifyEventsByMultipleTypeOrPlaceholder(selectedTypes);
+        });
+    }
+
 }
