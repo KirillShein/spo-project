@@ -33,7 +33,7 @@ public class EventsTests extends TestBase {
             registrationPage.submitClick();
         });
 
-        step("нажать на кнопку Видеоархив", () -> {
+        step("нажать на кнопку События", () -> {
             mainPage.sectionClick("События");
         });
 
@@ -70,7 +70,7 @@ public class EventsTests extends TestBase {
             registrationPage.submitClick();
         });
 
-        step("нажать на кнопку Видеоархив", () -> {
+        step("нажать на кнопку События", () -> {
             mainPage.sectionClick("События");
         });
 
@@ -89,12 +89,11 @@ public class EventsTests extends TestBase {
         step("проверить правильность фильтрации по  выбранному типу события или отображения заглушки", () -> {
             eventsPage.verifyEventsByTypeOrPlaceholder(filterModalEvensPage.getSelectedOneTypeEvent());
         });
-
-        sleep(2500);
     }
 
     @Test
     void filterEventsBySeveralTypeEvent() {
+
         step("открыть страницу с формой авторизации", () -> {
             registrationPage.openPage();
         });
@@ -108,7 +107,7 @@ public class EventsTests extends TestBase {
             registrationPage.submitClick();
         });
 
-        step("нажать на кнопку Видеоархив", () -> {
+        step("нажать на кнопку События", () -> {
             mainPage.sectionClick("События");
         });
 
@@ -128,6 +127,61 @@ public class EventsTests extends TestBase {
             List<String> selectedTypes = filterModalEvensPage.getSelectedMultipleCheckboxes();
             eventsPage.verifyEventsByMultipleTypeOrPlaceholder(selectedTypes);
         });
+
+
+    }
+
+    @Test
+    void filterEventsByDateAndOneTypeEvent() {
+
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку События", () -> {
+            mainPage.sectionClick("События");
+        });
+
+        step("нажать на кнопку Фильтр", () -> {
+            eventsPage.clickFilterButton();
+        });
+
+        step("нажать на поле События за", () -> {
+            filterModalEvensPage.clickInputEventsForDate();
+        });
+
+        step("выбрать день", () -> {
+            modalCalendarPage.selectRandomDateInCurrentMonth();
+        });
+
+        step("нажать на поле События", () -> {
+            filterModalEvensPage.clickInputTypeEvent();
+        });
+
+        step("выбрать один тип события", () -> {
+            filterModalEvensPage.selectRandomSingleCheckbox();
+        });
+
+        step("проверить правильность фильтрации по  выбранному типу события или отображения заглушки", () -> {
+            eventsPage.verifyEventsByTypeOrPlaceholder(filterModalEvensPage.getSelectedOneTypeEvent());
+        });
+
+
+        step("проверить правильность фильтрации по дате или отображения заглушки", () -> {
+            eventsPage.verifyEventsByDateOrPlaceholder(modalCalendarPage.getSelectedDate());
+        });
+
+        sleep(5000);
+
     }
 
 }
