@@ -1,13 +1,9 @@
 package tests;
 
 import org.junit.jupiter.api.Test;
-import pages.CardUserPage;
-import pages.MainPage;
-import pages.RegistrationPage;
-import pages.UserPage;
+import pages.*;
 import utils.TestData;
 
-import static com.codeborne.selenide.Selenide.sleep;
 import static io.qameta.allure.Allure.step;
 
 
@@ -17,6 +13,7 @@ public class UserTabTests extends TestBase {
     MainPage mainPage = new MainPage();
     UserPage userPage = new UserPage();
     CardUserPage cardUserPage = new CardUserPage();
+    FieldErrorModalPage fieldErrorModalPage = new FieldErrorModalPage();
     TestData testData = new TestData();
 
 
@@ -222,6 +219,152 @@ public class UserTabTests extends TestBase {
 
         step("проверить, что созданный пользователь есть в списке пользователей", () -> {
             userPage.verifyCreatedUser(testData.firstNameUser);
+        });
+    }
+
+    @Test
+    void creatingAUserWithEmptyLastName() {
+
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на раздел Пользователи", () -> {
+            mainPage.sectionClick("Пользователи");
+        });
+
+        step("нажать на кнопку Добавить", () -> {
+            userPage.clickButtonCreateUser();
+        });
+
+        step("ввести имя пользователя", () -> {
+            cardUserPage.setFirstName(testData.firstNameUser);
+        });
+
+        step("ввести отчество пользователя", () -> {
+            cardUserPage.setPatronymic(testData.patronymicUser);
+        });
+
+        step("ввести название подразделения", () -> {
+            cardUserPage.setDepartment("Выборгское");
+        });
+
+        step("Нажать на кнопку Укажите роль пользователя", () -> {
+            cardUserPage.clickChapterRole();
+        });
+
+        step("выбрать роль пользователя", () -> {
+            cardUserPage.clickButtonRole();
+        });
+
+        step("ввести логин пользователя", () -> {
+            cardUserPage.setLogin(testData.loginUser);
+        });
+
+        step("ввести пароль пользователя", () -> {
+            cardUserPage.setPassword(testData.passwordUser);
+        });
+
+        step("ввести подтверждение пароля пользователя", () -> {
+            cardUserPage.setPasswordConfirme(testData.passwordUser);
+        });
+
+        step("нажать на кнопку Сохранить", () -> {
+            cardUserPage.clickButtonSave();
+        });
+
+        step("проверить, что открылось модальное окно с сообщеним об ошибке", () -> {
+            fieldErrorModalPage.verifyOpenErrorModal();
+        });
+
+        step("нажать на кнопку Ок", () -> {
+            fieldErrorModalPage.clickClosedErrorModal();
+        });
+
+        step("проверить, что модальное окно было закрыто", () -> {
+            fieldErrorModalPage.verifyClosedErrorModal();
+        });
+    }
+
+    @Test
+    void creatingAUserWithEmptyLogin() {
+
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на раздел Пользователи", () -> {
+            mainPage.sectionClick("Пользователи");
+        });
+
+        step("нажать на кнопку Добавить", () -> {
+            userPage.clickButtonCreateUser();
+        });
+
+        step("ввести фамилию пользователя", () -> {
+            cardUserPage.setLastName(testData.lastNameUser);
+        });
+
+        step("ввести имя пользователя", () -> {
+            cardUserPage.setFirstName(testData.firstNameUser);
+        });
+
+        step("ввести отчество пользователя", () -> {
+            cardUserPage.setPatronymic(testData.patronymicUser);
+        });
+
+        step("ввести название подразделения", () -> {
+            cardUserPage.setDepartment("Выборгское");
+        });
+
+        step("Нажать на кнопку Укажите роль пользователя", () -> {
+            cardUserPage.clickChapterRole();
+        });
+
+        step("выбрать роль пользователя", () -> {
+            cardUserPage.clickButtonRole();
+        });
+
+        step("ввести пароль пользователя", () -> {
+            cardUserPage.setPassword(testData.passwordUser);
+        });
+
+        step("ввести подтверждение пароля пользователя", () -> {
+            cardUserPage.setPasswordConfirme(testData.passwordUser);
+        });
+
+        step("нажать на кнопку Сохранить", () -> {
+            cardUserPage.clickButtonSave();
+        });
+
+        step("проверить, что открылось модальное окно с сообщеним об ошибке", () -> {
+            fieldErrorModalPage.verifyOpenErrorModal();
+        });
+
+        step("нажать на кнопку Ок", () -> {
+            fieldErrorModalPage.clickClosedErrorModal();
+        });
+
+        step("проверить, что модальное окно было закрыто", () -> {
+            fieldErrorModalPage.verifyClosedErrorModal();
         });
     }
 }
