@@ -20,7 +20,8 @@ public class UserPage {
                             userName = $x("//h4[contains(text(), '" + testData.nameUser + "')]"),
                             userTabPlaceholder = $x("//div[contains(text(), '" + testData.userTabPlaceholderText + "')]"),
                             iconCleanSearch = $("[data-testid='ClearRoundedIcon']"),
-                            administratorUser = $x("//h4[contains(text(), 'Администратор')]");
+                            administratorUser = $x("//h4[contains(text(), 'Администратор')]"),
+                            buttonCreateUser = $x("//button[text()='Добавить']");
 
     private ElementsCollection usersItem = $$x("//div[contains(text(), 'Добавлен:')]");
 
@@ -57,6 +58,18 @@ public class UserPage {
 
     public UserPage clickAdministratorItem() {
         administratorUser.click();
+
+        return this;
+    }
+
+    public UserPage clickButtonCreateUser() {
+        buttonCreateUser.click();
+
+        return this;
+    }
+
+    public UserPage verifyCreatedUser(String firstName) {
+        $x("//h4[contains(text(), '" + firstName + "')]").shouldBe(visible);
 
         return this;
     }
