@@ -5,8 +5,6 @@ import pages.*;
 
 
 import java.util.List;
-
-import static com.codeborne.selenide.Selenide.sleep;
 import static io.qameta.allure.Allure.step;
 
 public class EventsTests extends TestBase {
@@ -179,9 +177,56 @@ public class EventsTests extends TestBase {
         step("проверить правильность фильтрации по дате или отображения заглушки", () -> {
             eventsPage.verifyEventsByDateOrPlaceholder(modalCalendarPage.getSelectedDate());
         });
+    }
 
-        sleep(5000);
+    @Test
+    void filterEventsByDateAndSeveralTypeEvent() {
 
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку События", () -> {
+            mainPage.sectionClick("События");
+        });
+
+        step("нажать на кнопку Фильтр", () -> {
+            eventsPage.clickFilterButton();
+        });
+
+        step("нажать на поле События за", () -> {
+            filterModalEvensPage.clickInputEventsForDate();
+        });
+
+        step("выбрать день", () -> {
+            modalCalendarPage.selectRandomDateInCurrentMonth();
+        });
+
+        step("нажать на поле События", () -> {
+            filterModalEvensPage.clickInputTypeEvent();
+        });
+
+        step("выбрать несколько типов события", () -> {
+            filterModalEvensPage.selectRandomMultipleCheckboxes(3);
+        });
+
+        step("проверить, что отображаются события выбранных типов", () -> {
+            List<String> selectedTypes = filterModalEvensPage.getSelectedMultipleCheckboxes();
+            eventsPage.verifyEventsByMultipleTypeOrPlaceholder(selectedTypes);
+        });
+
+        step("проверить правильность фильтрации по дате или отображения заглушки", () -> {
+            eventsPage.verifyEventsByDateOrPlaceholder(modalCalendarPage.getSelectedDate());
+        });
     }
 
 }

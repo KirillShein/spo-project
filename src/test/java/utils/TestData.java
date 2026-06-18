@@ -6,5 +6,7 @@ public class TestData {
                   departmentUser = "Новские",
                   numberCamera = "1",
                   videoArchivePlaceholderText = "Нет файлов, удовлетворяющих критериям поиска",
-                  eventsPlaceholderText = "Нет событий за выбранную дату";
+                  eventsPlaceholderText = "Нет событий за выбранную дату",
+                  userTabPlaceholderText = "Нет пользователей",
+                  unsuccessfulUserName = "Иванов Антон Павлович";
 }
