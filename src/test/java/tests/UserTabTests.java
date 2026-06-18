@@ -224,6 +224,67 @@ public class UserTabTests extends TestBase {
     }
 
     @Test
+    void successfulUserWithRoleUserCreation() {
+
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на раздел Пользователи", () -> {
+            mainPage.sectionClick("Пользователи");
+        });
+
+        step("нажать на кнопку Добавить", () -> {
+            userPage.clickButtonCreateUser();
+        });
+
+        step("ввести фамилию пользователя", () -> {
+            cardUserPage.setLastName(testData.lastNameUser);
+        });
+
+        step("ввести имя пользователя", () -> {
+            cardUserPage.setFirstName(testData.firstNameUser);
+        });
+
+        step("ввести отчество пользователя", () -> {
+            cardUserPage.setPatronymic(testData.patronymicUser);
+        });
+
+        step("ввести название подразделения", () -> {
+            cardUserPage.setDepartment("Выборгское");
+        });
+
+        step("Нажать на кнопку Укажите роль пользователя", () -> {
+            cardUserPage.clickChapterRole();
+        });
+
+        step("выбрать роль пользователя Пользователь", () -> {
+            cardUserPage.clickButtonRoleClient();
+        });
+
+        step("ввести код пользователя", () -> {
+            cardUserPage.setCode(testData.codeRandomUser);
+        });
+
+        step("нажать на кнопку Сохранить", () -> {
+            cardUserPage.clickButtonSave();
+        });
+
+        step("проверить, что созданный пользователь есть в списке пользователей", () -> {
+            userPage.verifyCreatedUser(testData.firstNameUser);
+        });
+    }
+
+    @Test
     void creatingAUserWithEmptyLastName() {
 
         step("открыть страницу с формой авторизации", () -> {
@@ -284,7 +345,7 @@ public class UserTabTests extends TestBase {
         });
 
         step("проверить, что открылось модальное окно с сообщеним об ошибке", () -> {
-            fieldErrorModalPage.verifyOpenErrorModal();
+            fieldErrorModalPage.verifyOpenErrorModal("Не заполнены поля ФИО");
         });
 
         step("нажать на кнопку Ок", () -> {
@@ -357,7 +418,7 @@ public class UserTabTests extends TestBase {
         });
 
         step("проверить, что открылось модальное окно с сообщеним об ошибке", () -> {
-            fieldErrorModalPage.verifyOpenErrorModal();
+            fieldErrorModalPage.verifyOpenErrorModal("Не заполнены поля логина или пароля");
         });
 
         step("нажать на кнопку Ок", () -> {
@@ -434,7 +495,7 @@ public class UserTabTests extends TestBase {
         });
 
         step("проверить, что открылось модальное окно с сообщеним об ошибке", () -> {
-            fieldErrorModalPage.verifyOpenErrorModal();
+            fieldErrorModalPage.verifyOpenErrorModal("Введённые пароли не совпадают");
         });
 
         step("нажать на кнопку Ок", () -> {
@@ -499,7 +560,7 @@ public class UserTabTests extends TestBase {
         });
 
         step("проверить, что открылось модальное окно с сообщеним об ошибке", () -> {
-            fieldErrorModalPage.verifyOpenErrorModal();
+            fieldErrorModalPage.verifyOpenErrorModal("Введите код для использования камеры пользователем");
         });
 
         step("нажать на кнопку Ок", () -> {
@@ -510,4 +571,152 @@ public class UserTabTests extends TestBase {
             fieldErrorModalPage.verifyClosedErrorModal();
         });
     }
+
+    @Test
+    void checkDuplicateLoginError() {
+
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на раздел Пользователи", () -> {
+            mainPage.sectionClick("Пользователи");
+        });
+
+        step("нажать на кнопку Добавить", () -> {
+            userPage.clickButtonCreateUser();
+        });
+
+        step("ввести фамилию пользователя", () -> {
+            cardUserPage.setLastName(testData.lastNameUser);
+        });
+
+        step("ввести имя пользователя", () -> {
+            cardUserPage.setFirstName(testData.firstNameUser);
+        });
+
+        step("ввести отчество пользователя", () -> {
+            cardUserPage.setPatronymic(testData.patronymicUser);
+        });
+
+        step("ввести название подразделения", () -> {
+            cardUserPage.setDepartment("Выборгское");
+        });
+
+        step("Нажать на кнопку Укажите роль пользователя", () -> {
+            cardUserPage.clickChapterRole();
+        });
+
+        step("выбрать роль пользователя", () -> {
+            cardUserPage.clickButtonRole();
+        });
+
+        step("ввести существующий логин пользователя", () -> {
+            cardUserPage.setLogin("admin");
+        });
+
+        step("ввести пароль пользователя", () -> {
+            cardUserPage.setPassword(testData.passwordUser);
+        });
+
+        step("ввести подтверждение пароля пользователя", () -> {
+            cardUserPage.setPasswordConfirme(testData.passwordUser);
+        });
+
+        step("нажать на кнопку Сохранить", () -> {
+            cardUserPage.clickButtonSave();
+        });
+
+        step("проверить, что открылось модальное окно с сообщеним об ошибке", () -> {
+            fieldErrorModalPage.verifyOpenErrorModal("Логин уже занят");
+        });
+
+        step("нажать на кнопку Ок", () -> {
+            fieldErrorModalPage.clickClosedErrorModal();
+        });
+
+        step("проверить, что модальное окно было закрыто", () -> {
+            fieldErrorModalPage.verifyClosedErrorModal();
+        });
+    }
+
+    @Test
+    void checkDuplicateCodeError() {
+
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на раздел Пользователи", () -> {
+            mainPage.sectionClick("Пользователи");
+        });
+
+        step("нажать на кнопку Добавить", () -> {
+            userPage.clickButtonCreateUser();
+        });
+
+        step("ввести фамилию пользователя", () -> {
+            cardUserPage.setLastName(testData.lastNameUser);
+        });
+
+        step("ввести имя пользователя", () -> {
+            cardUserPage.setFirstName(testData.firstNameUser);
+        });
+
+        step("ввести отчество пользователя", () -> {
+            cardUserPage.setPatronymic(testData.patronymicUser);
+        });
+
+        step("ввести название подразделения", () -> {
+            cardUserPage.setDepartment("Выборгское");
+        });
+
+        step("Нажать на кнопку Укажите роль пользователя", () -> {
+            cardUserPage.clickChapterRole();
+        });
+
+        step("выбрать роль пользователя Пользователь", () -> {
+            cardUserPage.clickButtonRoleClient();
+        });
+
+        step("ввести уже существующий код", () -> {
+            cardUserPage.setCode("0612");
+        });
+
+        step("нажать на кнопку Сохранить", () -> {
+            cardUserPage.clickButtonSave();
+        });
+
+        step("проверить, что открылось модальное окно с сообщеним об ошибке", () -> {
+            fieldErrorModalPage.verifyOpenErrorModal("Код пользователя уже занят");
+        });
+
+        step("нажать на кнопку Ок", () -> {
+            fieldErrorModalPage.clickClosedErrorModal();
+        });
+
+        step("проверить, что модальное окно было закрыто", () -> {
+            fieldErrorModalPage.verifyClosedErrorModal();
+        });
+    }
+
+
 }

@@ -21,7 +21,8 @@ public class TestData {
                   patronymicUser = getRandomPatronymic(),
                   roleUser = getRandomRoleUser(),
                   loginUser = getRandomLoginUser(),
-                  passwordUser = getRandomPassword();
+                  passwordUser = getRandomPassword(),
+                  codeRandomUser = getRandomCodeUser();
 
 
     public static String getRandomLastNameUser() {
@@ -48,6 +49,10 @@ public class TestData {
 
     public static String getRandomPassword() {
         return faker.internet().password();
+    }
+
+    public static String getRandomCodeUser() {
+        return faker.number().toString();
     }
 
 }
