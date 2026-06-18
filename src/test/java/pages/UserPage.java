@@ -19,7 +19,8 @@ public class UserPage {
     private SelenideElement searchInput = $("#findUser"),
                             userName = $x("//h4[contains(text(), '" + testData.nameUser + "')]"),
                             userTabPlaceholder = $x("//div[contains(text(), '" + testData.userTabPlaceholderText + "')]"),
-                            iconCleanSearch = $("[data-testid='ClearRoundedIcon']");
+                            iconCleanSearch = $("[data-testid='ClearRoundedIcon']"),
+                            administratorUser = $x("//h4[contains(text(), 'Администратор')]");
 
     private ElementsCollection usersItem = $$x("//div[contains(text(), 'Добавлен:')]");
 
@@ -50,6 +51,12 @@ public class UserPage {
 
     public UserPage verifyUSersItems() {
         usersItem.shouldHave(sizeGreaterThan(2));
+
+        return this;
+    }
+
+    public UserPage clickAdministratorItem() {
+        administratorUser.click();
 
         return this;
     }

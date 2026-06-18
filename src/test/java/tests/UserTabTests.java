@@ -1,6 +1,7 @@
 package tests;
 
 import org.junit.jupiter.api.Test;
+import pages.CardUserPage;
 import pages.MainPage;
 import pages.RegistrationPage;
 import pages.UserPage;
@@ -15,6 +16,7 @@ public class UserTabTests extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
     MainPage mainPage = new MainPage();
     UserPage userPage = new UserPage();
+    CardUserPage cardUserPage = new CardUserPage();
     TestData testData = new TestData();
 
 
@@ -111,5 +113,49 @@ public class UserTabTests extends TestBase {
         step("проверить что отобразились все пользователи", () -> {
             userPage.verifyUSersItems();
         });
+    }
+
+    @Test
+    void checkingTheAdministratorCard() {
+
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на кнопку Пользователи", () -> {
+            mainPage.sectionClick("Пользователи");
+        });
+
+        step("нажать на пользователя с ролью Администратор", () -> {
+            userPage.clickAdministratorItem();
+        });
+
+        step("проверить, что отсутствует раздел Роль", () -> {
+            cardUserPage.checkingForMissingPartition("Роль");
+        });
+
+        step("проверить, что отсутствует раздел Параметры использования камеры", () -> {
+            cardUserPage.checkingForMissingPartition("Параметры использования камеры");
+        });
+
+        step("проверить, что нельзя отключить учетную запись пользователя", () -> {
+            cardUserPage.checkingForMissingPartition("Учетная запись включена");
+        });
+
+        step("проверить, что нельзя удалить пользователя", () -> {
+            cardUserPage.checkingForMissingButtonDeleteUser();
+        });
+
+        sleep(3000);
+
     }
 }
