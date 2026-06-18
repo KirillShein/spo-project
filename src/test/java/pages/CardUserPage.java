@@ -21,7 +21,9 @@ public class CardUserPage {
                             inputLogin = $("#login"),
                             inputPassword = $("#password"),
                             inputConfirmePassword = $("#confirmedPassword"),
-                            buttonSaveUser = $x("//button[text()='Сохранить']");
+                            buttonSaveUser = $x("//button[text()='Сохранить']"),
+                            inputCodeUser = $("#code"),
+                            buttonRoleClient = $x("//button[text()='Пользователь']");
 
     public CardUserPage checkingForMissingPartition(String chapterName) {
         $x("//li[contains(text(), '" + chapterName + "')]").shouldBe(hidden);
@@ -91,6 +93,18 @@ public class CardUserPage {
 
     public CardUserPage clickButtonSave() {
         buttonSaveUser.click();
+
+        return this;
+    }
+
+    public CardUserPage setCode(String value) {
+        inputCodeUser.setValue(value);
+
+        return this;
+    }
+
+    public CardUserPage clickButtonRoleClient() {
+        buttonRoleClient.click();
 
         return this;
     }

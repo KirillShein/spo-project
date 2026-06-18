@@ -445,4 +445,69 @@ public class UserTabTests extends TestBase {
             fieldErrorModalPage.verifyClosedErrorModal();
         });
     }
+
+    @Test
+    void checkEmptyCodeFieldForUserRole() {
+
+        step("открыть страницу с формой авторизации", () -> {
+            registrationPage.openPage();
+        });
+
+        step("ввести логин и пароль", () -> {
+            registrationPage.login(login)
+                    .password(password);
+        });
+
+        step("нажать на кнопку Войти", () -> {
+            registrationPage.submitClick();
+        });
+
+        step("нажать на раздел Пользователи", () -> {
+            mainPage.sectionClick("Пользователи");
+        });
+
+        step("нажать на кнопку Добавить", () -> {
+            userPage.clickButtonCreateUser();
+        });
+
+        step("ввести фамилию пользователя", () -> {
+            cardUserPage.setLastName(testData.lastNameUser);
+        });
+
+        step("ввести имя пользователя", () -> {
+            cardUserPage.setFirstName(testData.firstNameUser);
+        });
+
+        step("ввести отчество пользователя", () -> {
+            cardUserPage.setPatronymic(testData.patronymicUser);
+        });
+
+        step("ввести название подразделения", () -> {
+            cardUserPage.setDepartment("Выборгское");
+        });
+
+        step("Нажать на кнопку Укажите роль пользователя", () -> {
+            cardUserPage.clickChapterRole();
+        });
+
+        step("выбрать роль пользователя Пользователь", () -> {
+            cardUserPage.clickButtonRoleClient();
+        });
+
+        step("нажать на кнопку Сохранить", () -> {
+            cardUserPage.clickButtonSave();
+        });
+
+        step("проверить, что открылось модальное окно с сообщеним об ошибке", () -> {
+            fieldErrorModalPage.verifyOpenErrorModal();
+        });
+
+        step("нажать на кнопку Ок", () -> {
+            fieldErrorModalPage.clickClosedErrorModal();
+        });
+
+        step("проверить, что модальное окно было закрыто", () -> {
+            fieldErrorModalPage.verifyClosedErrorModal();
+        });
+    }
 }
